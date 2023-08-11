@@ -1,1 +1,45 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+  font-family: "Lato";
+  src: url("./assets/fonts/Lato-Light.ttf") format("truetype");
+  font-weight: 300; // Light weight
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url("./assets/fonts/Lato-Regular.ttf") format("truetype");
+  font-weight: 400; // Regular weight
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url("./assets/fonts/Lato-Medium.ttf") format("truetype");
+  font-weight: 500; // Medium weight
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url("./assets/fonts/Lato-Semibold.ttf") format("truetype");
+  font-weight: 600; // Semibold weight
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url("./assets/fonts/Lato-Bold.ttf") format("truetype");
+  font-weight: 700; // Bold weight
+}
+
+@font-face {
+  font-family: "Lato";
+  src: url("./assets/fonts/Lato-Heavy.ttf") format("truetype");
+  font-weight: 800; // Heavy weight
+}
+
+body {
+  font-family: "Lato", sans-serif; // Use the name of your font
+  background: #9B8ADB;
+}
+
+h1, h2, h3, h4 {
+  margin: 0;
+}
