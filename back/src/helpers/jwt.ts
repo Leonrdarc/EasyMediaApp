@@ -12,7 +12,11 @@ export const encodeJWT = (
   payload: object,
   expiresIn: string = JWT_EXPIRATION
 ): string => {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn });
+  try {
+    return jwt.sign(payload, JWT_SECRET, { expiresIn });
+  } catch (error) {
+    throw error;
+  }
 };
 
 /**
@@ -24,6 +28,6 @@ export const decodeJWT = (token: string): JwtPayload | string | null => {
   try {
     return jwt.verify(token, JWT_SECRET);
   } catch (error) {
-    return null;
+    throw error;
   }
 };
