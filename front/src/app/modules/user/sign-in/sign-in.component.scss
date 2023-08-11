@@ -1,0 +1,42 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  height: 100vh; /* 100% of the viewport height */
+  align-items: center; /* Center items horizontally */
+  padding: 50px;
+  img {
+    width: auto; /* maintain aspect ratio */
+    height: calc(
+      100vh - 250px
+    ); /* occupy the remaining space (assuming the form and title take about 250px combined) */
+    max-width: 100%; /* ensures it doesn't exceed container's width */
+    max-height: calc(
+      100vw - 100px
+    ); /* ensures it doesn't exceed container's width */
+  }
+
+  h1 {
+    color: #fff;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 800;
+    line-height: normal;
+  }
+
+  h3 {
+    color: #48e3be;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+
+  h2 {
+    color: #fff;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
+}

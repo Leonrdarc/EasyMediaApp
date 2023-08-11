@@ -1,0 +1,18 @@
+.main-button {
+  background: linear-gradient(270deg, #C645A9 0%, #58BBDB 100%);
+  border-radius: 20px;
+  padding: 10px 20px;
+  color: white;
+  cursor: pointer;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: opacity 0.3s;
+
+  &:hover {
+    opacity: 0.9;
+  }
+}
+
+.full-width {
+  width: 100%;
+}
