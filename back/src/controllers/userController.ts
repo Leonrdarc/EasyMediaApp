@@ -1,4 +1,4 @@
-import { Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 import { comparePasswords, hashPassword } from "../helpers/utils";
 import User, { IUser } from "../models/User";
 import { encodeJWT } from "../helpers/jwt";
@@ -10,16 +10,16 @@ import { AppError } from "../middlewares/errorHandler";
  * @param req - Express request object.
  * @param res - Express response object.
  */
-export const registerUser = async (req: Request, res: Response) => {
-  const { name, email, password } = req.body;
-
-  // Check if user with the given email already exists
-  const existingUser = await User.findOne({ email });
-  if (existingUser) {
-    throw new AppError(400, "User with this email already exists.")
-  }
-
+export const registerUser = async (req: Request, res: Response, next: NextFunction) => {
   try {
+    const { name, email, password } = req.body;
+
+    // Check if user with the given email already exists
+    const existingUser = await User.findOne({ email });
+    if (existingUser) {
+      throw new AppError(400, "User with this email already exists.");
+    }
+
     // Hash the password
     const hashedPassword = await hashPassword(password);
 
@@ -43,7 +43,7 @@ export const registerUser = async (req: Request, res: Response) => {
       },
     });
   } catch (error) {
-    throw error
+    return next(error);
   }
 };
 
@@ -53,16 +53,20 @@ export const registerUser = async (req: Request, res: Response) => {
  * @param req - Express request object.
  * @param res - Express response object.
  */
-export const loginUser = async (req: Request, res: Response) => {
-  const { email, password } = req.body;
-
-  // Check if user with the given email exists
-  const user = await User.findOne({ email });
-  if (!user) {
-    throw new AppError(404, "User not found")
-  }
-
+export const loginUser = async (
+  req: Request,
+  res: Response,
+  next: NextFunction
+) => {
   try {
+    const { email, password } = req.body;
+
+    // Check if user with the given email exists
+    const user = await User.findOne({ email });
+    if (!user) {
+      throw new AppError(404, "User not found");
+    }
+
     // Check if the password matches the hash in DB
     const isPasswordCorrect = await comparePasswords(password, user.password);
 
@@ -81,6 +85,6 @@ export const loginUser = async (req: Request, res: Response) => {
       throw new AppError(401, "Incorrect password.");
     }
   } catch (error) {
-    throw error;
+    return next(error);
   }
 };

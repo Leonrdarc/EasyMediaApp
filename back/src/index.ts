@@ -24,14 +24,14 @@ const swaggerOptions = {
 
 const specs = swaggerJsDoc(swaggerOptions);
 
-//Middlewares
-app.use(errorHandler)
-app.use(express.json())
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
+app.use(express.json())
 
-//Routes
 app.use('/', routes);
+
+app.use(errorHandler)
 
 app.listen(PORT, () => {
   console.log(`Server is running on http://localhost:${PORT}`);
 });
+
