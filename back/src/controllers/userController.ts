@@ -2,7 +2,7 @@ import { Request, Response } from 'express';
 import bcrypt from 'bcrypt';
 import { hashPassword } from '../helpers/utils';
 import User, { IUser } from '../models/User';
-
+import { encodeJWT } from '../helpers/jwt';
 
 /**
  * Register a new user.
@@ -34,10 +34,15 @@ export const registerUser = async (req: Request, res: Response) => {
 
         await user.save();
 
+        const token = encodeJWT(user)
+
         // Respond to the client
         res.status(201).json({
             message: 'User created successfully.',
-            data: user
+            data: {
+                user,
+                token
+            }
         });
     } catch (error) {
         res.status(500).json({
@@ -46,3 +51,5 @@ export const registerUser = async (req: Request, res: Response) => {
         });
     }
 };
+
+
