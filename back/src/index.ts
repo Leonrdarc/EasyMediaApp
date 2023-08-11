@@ -4,6 +4,7 @@ import swaggerUi from 'swagger-ui-express';
 import { connectDB } from "./helpers/database";
 import { PORT } from "./config/env";
 import routes from "./routes";
+import { errorHandler } from "./middlewares/errorHandler";
 
 connectDB();
 
@@ -24,6 +25,7 @@ const swaggerOptions = {
 const specs = swaggerJsDoc(swaggerOptions);
 
 //Middlewares
+app.use(errorHandler)
 app.use(express.json())
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(specs));
 
