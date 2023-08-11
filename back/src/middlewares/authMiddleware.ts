@@ -2,6 +2,7 @@ import { NextFunction, Request, Response } from "express";
 import jwt from "jsonwebtoken";
 import { AppError } from "./errorHandler";
 import { JWT_SECRET } from "../config/env";
+import { IUser } from "../models/User";
 
 export const authMiddleware = (
   req: Request,
@@ -19,11 +20,10 @@ export const authMiddleware = (
 
   try {
     // Verifying the token
-    const decoded = jwt.verify(token, JWT_SECRET);
+    const userDecoded = jwt.verify(token, JWT_SECRET) as IUser;
 
-    // You can store user information in the req object if the token contains it
-    //@ts-ignore
-    req.user = decoded;
+    // Store user information in the req object if the token contains it
+    req.user = userDecoded;
 
     next();
   } catch (error) {
