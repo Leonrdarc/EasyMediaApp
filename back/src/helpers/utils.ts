@@ -1,4 +1,4 @@
-import bcrypt from 'bcrypt';
+import bcrypt from "bcrypt";
 
 /**
  * The number of rounds to use when salting the password hash.
@@ -16,7 +16,7 @@ const SALT_ROUNDS = 10;
  * @returns The hashed password.
  */
 export const hashPassword = async (password: string): Promise<string> => {
-    return bcrypt.hash(password, SALT_ROUNDS);
+  return bcrypt.hash(password, SALT_ROUNDS);
 };
 
 /**
@@ -26,6 +26,30 @@ export const hashPassword = async (password: string): Promise<string> => {
  * @param hashed - The hashed password.
  * @returns True if they match, false otherwise.
  */
-export const comparePasswords = async (plaintext: string, hashed: string): Promise<boolean> => {
-    return bcrypt.compare(plaintext, hashed);
+export const comparePasswords = async (
+  plaintext: string,
+  hashed: string
+): Promise<boolean> => {
+  return bcrypt.compare(plaintext, hashed);
+};
+
+export const getFilters = (userId: string, stringDate?: string) => {
+  let filter: { userId: string; date?: unknown } = { userId: userId };
+  if (stringDate) {
+    // Parse the date, considering "date" is in the format "YYYY-MM-DD"
+    const parsedDate = new Date(stringDate as string);
+    const nextDay = new Date(parsedDate);
+    nextDay.setDate(parsedDate.getDate() + 1); // Set to start of the next day
+
+    // Add to the filter object
+    filter["date"] = { $gte: parsedDate, $lt: nextDay };
+  }
+  return filter;
+};
+
+export const getLimitAndSkip = (limit = '3', page = '1') => {
+  const numLimit = parseInt(limit as string);
+  const numPage = parseInt(page as string);
+
+  return { numLimit, numSkip: (numPage - 1) * numLimit };
 };
