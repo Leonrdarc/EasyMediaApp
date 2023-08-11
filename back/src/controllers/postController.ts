@@ -29,7 +29,7 @@ export const createPost = async (
     const user = req.user;
 
     // Create the new Post
-    await Post.create({ title, content, userId: user._id });
+    await Post.create({ title, content, user: user._id });
 
     // Respond to the client
     res.status(201).json({
@@ -58,10 +58,13 @@ export const getMyPosts = async (
       page ? (page as string) : "1"
     );
 
-    // Filter by publishDate if provided in query params
-    const filter = getFilters(userId, date as string | undefined);
+    const filter = getFilters({ userId, stringDate: date as string });
 
-    const posts = await Post.find(filter).limit(numLimit).skip(numSkip).exec();
+    const posts = await Post.find(filter)
+      .limit(numLimit)
+      .skip(numSkip)
+      .populate("user")
+      .exec();
 
     const totalPosts = await Post.countDocuments();
     const totalPages = Math.ceil(totalPosts / numLimit);
@@ -90,14 +93,23 @@ export const getAllPosts = async (
       return next(new AppError(401, "Authentication is required"));
     }
 
-    const { limit, page } = req.query;
+    const { date, search, limit, page } = req.query;
+
+    const filter = getFilters({
+      stringDate: date as string,
+      search: search as string,
+    });
 
     const { numLimit, numSkip } = getLimitAndSkip(
       limit ? (limit as string) : "3",
       page ? (page as string) : "1"
     );
 
-    const posts = await Post.find({}).limit(numLimit).skip(numSkip).exec();
+    const posts = await Post.find(filter)
+      .limit(numLimit)
+      .skip(numSkip)
+      .populate("user")
+      .exec();
 
     const totalPosts = await Post.countDocuments();
     const totalPages = Math.ceil(totalPosts / numLimit);

@@ -33,8 +33,18 @@ export const comparePasswords = async (
   return bcrypt.compare(plaintext, hashed);
 };
 
-export const getFilters = (userId: string, stringDate?: string) => {
-  let filter: { userId: string; date?: unknown } = { userId: userId };
+export const getFilters = (params: {
+  userId?: string;
+  stringDate?: string;
+  search?: string;
+}) => {
+  const { userId, stringDate, search } = params;
+
+  let filter: { user?: string; date?: unknown, title?: unknown } = {};
+
+  if (userId){
+    filter.user = userId;
+  }
   if (stringDate) {
     // Parse the date, considering "date" is in the format "YYYY-MM-DD"
     const parsedDate = new Date(stringDate as string);
@@ -42,12 +52,17 @@ export const getFilters = (userId: string, stringDate?: string) => {
     nextDay.setDate(parsedDate.getDate() + 1); // Set to start of the next day
 
     // Add to the filter object
-    filter["date"] = { $gte: parsedDate, $lt: nextDay };
+    filter.date = { $gte: parsedDate, $lt: nextDay };
   }
+  if(search){
+    //Add the search to the filter
+    filter.title = new RegExp(search, 'i')
+  }
+  
   return filter;
 };
 
-export const getLimitAndSkip = (limit = '3', page = '1') => {
+export const getLimitAndSkip = (limit = "3", page = "1") => {
   const numLimit = parseInt(limit as string);
   const numPage = parseInt(page as string);
 
