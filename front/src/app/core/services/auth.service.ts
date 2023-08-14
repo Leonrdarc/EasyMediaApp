@@ -14,29 +14,47 @@ export class AuthService {
     this.loggedIn.next(!!this.getToken());
   }
 
-  login({email, password}: {email: string, password: string}): Observable<any> {
+  login({
+    email,
+    password,
+  }: {
+    email: string;
+    password: string;
+  }): Observable<any> {
     return this.http.post<any>('/user/login', { email, password }).pipe(
       map((data) => {
         this.storeToken(data.token);
+        localStorage.setItem('user', JSON.stringify(data.user));
         this.loggedIn.next(true);
         return data;
       })
     );
   }
 
-  register({name, email, password}: {name: string, email: string, password: string}): Observable<any> {
-    return this.http.post<any>('/user/register', { name, email, password }).pipe(
-      map((data) => {
-        this.storeToken(data.token);
-        this.loggedIn.next(true);
-        return data;
-      })
-    );
+  register({
+    name,
+    email,
+    password,
+  }: {
+    name: string;
+    email: string;
+    password: string;
+  }): Observable<any> {
+    return this.http
+      .post<any>('/user/register', { name, email, password })
+      .pipe(
+        map((data) => {
+          this.storeToken(data.token);
+          localStorage.setItem('user', JSON.stringify(data.user));
+          this.loggedIn.next(true);
+          return data;
+        })
+      );
   }
-  
 
   logout(): void {
     this.removeToken();
+    localStorage.removeItem('user');
     this.loggedIn.next(false);
   }
 
