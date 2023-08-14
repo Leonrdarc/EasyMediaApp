@@ -1,0 +1,24 @@
+<div class="input-container">
+  <label>{{ label }}</label>
+  <div class="input-wrapper" (click)="openDateSelector()">
+    <img
+      class="close"
+      src="../../../../assets/icons/close-circle.svg"
+      *ngIf="isDateSelected"
+      (click)="resetDate($event)"
+    />
+    <input
+      [ngClass]="{ selected: isDateSelected }"
+      #dateInput
+      type="date"
+      [formControl]="control"
+      [max]="getCurrentDate()"
+      onkeydown="return false"
+    />
+    <img
+      class="arrow-down"
+      src="../../../../assets/icons/arrow-down.svg"
+      alt="Arrow down"
+    />
+  </div>
+</div>

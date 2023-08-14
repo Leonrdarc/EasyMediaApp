@@ -1,0 +1,60 @@
+.input-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  label {
+    color: #0e2248;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .input-wrapper {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+
+    a {
+      position: absolute;
+    }
+    img {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      margin: auto 0;
+    }
+
+    .close{
+      left: 10px;
+    }
+    .arrow-down{
+      right: 10px;
+    }
+
+
+    input {
+      font-family: "Lato", sans-serif;
+      border-radius: 16px;
+      border: 1px solid #5f5e5e;
+      background: #ebebeb;
+      resize: none;
+      padding: 4px 12px;
+      color: #666;
+
+      &::placeholder {
+        color: #b7b7b7;
+      }
+      &:focus {
+        outline: none;
+      }
+      &::-webkit-calendar-picker-indicator {
+        display: none;
+      }
+    }
+
+    .selected{
+      padding-left: 30px;
+    }
+  }
+}
