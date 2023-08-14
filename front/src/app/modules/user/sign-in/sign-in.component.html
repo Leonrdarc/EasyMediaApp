@@ -1,6 +1,57 @@
-<div class="container"> 
-    <img src="../../../../assets/images/image_main.png" alt="Description of Image">
+<div class="container">
+  <img
+    src="../../../../assets/images/image_main.png"
+    alt="Description of Image"
+  />
+  <div class="sign-in-header">
     <h1>Easy Media</h1>
-    <h3>Now, share is easy</h3>
+    <h3>Now, share is <b>easy</b></h3>
     <h2>Sign In</h2>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <app-input
+      label="Email"
+      type="email"
+      placeholder="example@email.com"
+      [control]="asFormControl(form.get('email'))"
+    >
+      <div *ngIf="form.get('email')?.touched">
+        <div *ngIf="form.get('email')?.hasError('required')">
+          Email is required
+        </div>
+        <div *ngIf="form.get('email')?.hasError('email')">
+          Please provide a valid email
+        </div>
+      </div>
+    </app-input>
+
+    <app-input
+      label="Password"
+      type="password"
+      placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+      [control]="asFormControl(form.get('password'))"
+    >
+      <div *ngIf="form.get('password')?.touched">
+        <div *ngIf="form.get('password')?.hasError('required')">
+          Password is required
+        </div>
+        <div *ngIf="form.get('password')?.hasError('minlength')">
+          Password must have a minimum of 8 characters
+        </div>
+      </div>
+    </app-input>
+
+    <div class="submit-section">
+      <app-button type="submit" [block]="true" [disabled]="form.invalid">
+        SIGN IN
+      </app-button>
+      <p class="form-submit-error" *ngIf="errorMessage">{{errorMessage}}</p>
+    </div>
+  </form>
+
+  <p class="no-account">
+    Don’t have an account? <a [routerLink]="['/sign-up']">Sign up here</a>
+  </p>
+
 </div>
