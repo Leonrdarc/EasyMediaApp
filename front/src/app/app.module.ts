@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { RouterModule } from '@angular/router';
-import { FormsModule } from '@angular/forms';
+import { ReactiveFormsModule } from '@angular/forms';
+import { HttpClientModule } from '@angular/common/http';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -14,6 +15,7 @@ import { NavBarComponent } from './shared/components/nav-bar/nav-bar.component';
 import { ButtonComponent } from './shared/components/button/button.component';
 import { InputComponent } from './shared/components/input/input.component';
 import { NavMenuComponent } from './shared/components/nav-bar/nav-menu/nav-menu.component';
+import { AuthService } from './core/services/auth.service';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,9 +33,10 @@ import { NavMenuComponent } from './shared/components/nav-bar/nav-menu/nav-menu.
     BrowserModule,
     AppRoutingModule,
     RouterModule,
-    FormsModule
+    ReactiveFormsModule,
+    HttpClientModule,
   ],
-  providers: [],
-  bootstrap: [AppComponent]
+  providers: [AuthService],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
