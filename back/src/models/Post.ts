@@ -2,7 +2,7 @@ import mongoose, { Document, Schema } from "mongoose";
 
 interface IPost extends Document {
   title: string;
-  content: string;
+  message: string;
   user: Schema.Types.ObjectId;
   date: Date;
 }
@@ -10,7 +10,7 @@ interface IPost extends Document {
 const postSchema = new Schema(
   {
     title: { type: String, required: true },
-    content: { type: String, required: true },
+    message: { type: String, required: true },
     user: { type: Schema.Types.ObjectId, ref: "User", required: true },
     date: { type: Date, default: Date.now },
   },

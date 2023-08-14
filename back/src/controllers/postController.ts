@@ -25,11 +25,11 @@ export const createPost = async (
     if (!req.user) {
       return next(new AppError(401, "Authentication is required"));
     }
-    const { title, content } = req.body;
+    const { title, message } = req.body;
     const user = req.user;
 
     // Create the new Post
-    await Post.create({ title, content, user: user._id });
+    await Post.create({ title, message, user: user._id });
 
     // Respond to the client
     res.status(201).json({
@@ -111,7 +111,7 @@ export const getAllPosts = async (
       .populate("user")
       .exec();
 
-    const totalPosts = await Post.countDocuments();
+    const totalPosts = await Post.countDocuments(filter);
     const totalPages = Math.ceil(totalPosts / numLimit);
 
     res.json({
