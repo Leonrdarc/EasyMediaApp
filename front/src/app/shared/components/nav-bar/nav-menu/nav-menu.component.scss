@@ -1,0 +1,51 @@
+.nav-menu {
+  position: relative;
+  z-index: 1;
+  
+  .menu-icon {
+    // Add your styles for the menu icons here
+  }
+  
+  .nav-menu-items {
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    background-color: #fff;
+    right: 0px;
+    top: 30px;
+    border-radius: 10px;
+    background: #fff;
+    box-shadow: 0px 0px 8px 0px rgba(0, 0, 0, 0.25);
+    width: max-content;
+
+    .nav-menu-title {
+      margin: 0px 8px;
+      margin-top: 6px;
+      color: #0e2248;
+      font-size: 15px;
+      font-weight: 600;
+      border-bottom: 1px solid#DDDADA;
+    }
+    .nav-link {
+      display: flex;
+      flex: 1;
+      gap: 7px;
+      padding: 6px 10px;
+      align-items: center;
+      color: #0e2248;
+      text-decoration: none;
+      font-size: 13px;
+      font-weight: 300;
+      cursor: pointer;
+
+      &:hover {
+        background-color: #dddada;
+      }
+    }
+
+    .nav-icon {
+      // Add your styles for the nav-icon here
+    }
+  }
+}

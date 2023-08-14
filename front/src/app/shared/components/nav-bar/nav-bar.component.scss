@@ -1,0 +1,33 @@
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #fff;
+  padding: 8px;
+
+  &-left {
+    display: flex;
+    align-items: center;
+
+    img {
+      width: 30px;
+      height: 30px;
+      margin-right: 5px;
+    }
+
+    h1 {
+      color: #0e2248;
+      font-size: 15px;
+      font-weight: 700;
+    }
+  }
+
+  &-right {
+    display: flex;
+    align-items: center;
+
+    i {
+      font-size: 24px;
+    }
+  }
+}

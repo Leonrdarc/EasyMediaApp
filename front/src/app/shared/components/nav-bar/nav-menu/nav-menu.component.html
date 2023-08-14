@@ -1,1 +1,24 @@
-<p>nav-menu works!</p>
+<div class="nav-menu">
+    <img class="menu-icon" *ngIf="!isExpanded" src="../../../../../assets/icons/menu.svg" (click)="toggle()" />
+    <img class="menu-icon" *ngIf="isExpanded" src="../../../../../assets/icons/close-menu.svg" (click)="toggle()" />
+
+    <div class="nav-menu-items" *ngIf="isExpanded">
+        <h1 class="nav-menu-title">{{ user?.name }}</h1>
+        <a class="nav-link" (click)="toggle()" routerLink="create-post">
+            <img class="nav-icon" src="../../../../../assets/icons/create.svg" alt="Create Publication" />
+            Create Publication
+        </a>
+        <a class="nav-link" (click)="toggle()" routerLink="my-posts">
+            <img class="nav-icon" src="../../../../../assets/icons/send.svg" alt="My Publications" />
+            My Publications
+        </a>
+        <a class="nav-link" (click)="toggle()" routerLink="all-posts">
+            <img class="nav-icon" src="../../../../../assets/icons/message.svg" alt="See All Publications" />
+            See All Publications
+        </a>
+        <a class="nav-link" (click)="logout()">
+            <img class="nav-icon" src="../../../../../assets/icons/logout.svg" alt="Logout" />
+            Logout
+        </a>
+    </div>
+</div>
