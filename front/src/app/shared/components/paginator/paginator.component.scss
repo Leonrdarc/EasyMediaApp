@@ -1,0 +1,31 @@
+.paginator {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+button {
+  background-color: transparent;
+  border: none;
+  cursor: pointer;
+  outline: none;
+  color: #666;
+  font-family: Lato;
+  font-size: 20px;
+  font-weight: 300;
+
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+
+  &.active {
+    font-weight: bold;
+  }
+}
+
+.left{
+  rotate: 180deg;
+}

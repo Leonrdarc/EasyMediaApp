@@ -1,0 +1,29 @@
+<div class="paginator">
+  <button (click)="firstPage()" [disabled]="currentPage === 1">
+    <img
+      class="left"
+      src="../../../../assets/icons/double-arrow-right.svg"
+      alt="double-arrow-right"
+    />
+  </button>
+  <button (click)="previousPage()" [disabled]="currentPage === 1">
+    <img class="left" src="../../../../assets/icons/arrow-right.svg" alt="arrow-right" />
+  </button>
+  <ng-container *ngFor="let page of pagesToShow">
+    <button
+      (click)="currentPage = page; currentPageChange.emit(currentPage)"
+      [class.active]="currentPage === page"
+    >
+      {{ page }}
+    </button>
+  </ng-container>
+  <button (click)="nextPage()" [disabled]="currentPage === totalPages">
+    <img src="../../../../assets/icons/arrow-right.svg" alt="arrow-right" />
+  </button>
+  <button (click)="lastPage()" [disabled]="currentPage === totalPages">
+    <img
+      src="../../../../assets/icons/double-arrow-right.svg"
+      alt="double-arrow-right"
+    />
+  </button>
+</div>
