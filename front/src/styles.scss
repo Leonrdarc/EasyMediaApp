@@ -45,6 +45,12 @@ input {
   font-family: "Lato", sans-serif;
 }
 
-h1, h2, h3, h4 {
+h1, h2, h3, h4, h5, h6, p {
   margin: 0;
+}
+
+mark {
+  border-radius: 1px;
+  background: #c646aa;
+  color: #fff;
 }
