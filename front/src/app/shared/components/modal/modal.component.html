@@ -1,0 +1,13 @@
+<div *ngIf="showModal" class="modal-overlay" (click)="onOverlayClick()">
+  <div class="modal" (click)="$event.stopPropagation()">
+    <div *ngIf="!isError" class="modal-body">
+      <img src="../../../../assets/icons/successful.svg" />
+      <p>Post Created</p>
+    </div>
+    <div *ngIf="isError" class="modal-body">
+      <img src="../../../../assets/icons/failed.svg" />
+      <p>Uppss Try Later</p>
+    </div>
+    <app-button class="ok-button" (click)="onClose()">Ok</app-button>
+  </div>
+</div>
