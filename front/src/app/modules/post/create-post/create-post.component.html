@@ -1,1 +1,45 @@
-<p>create-post works!</p>
+<div class="create-post">
+  <h1>Create message</h1>
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <app-text-field
+      [label]="'Title messages'"
+      [placeholder]="'Enter title'"
+      [control]="asFormControl(form.get('title'))"
+      [maxCharacters]="30"
+    >
+      <div *ngIf="form.get('title')?.touched">
+        <div *ngIf="form.get('title')?.hasError('required')">
+          Title is required
+        </div>
+      </div>
+    </app-text-field>
+    <app-text-field
+      [label]="'Messages'"
+      [placeholder]="'Create message for share with your friends.'"
+      [control]="asFormControl(form.get('message'))"
+      [maxCharacters]="300"
+      [rows]="5"
+    >
+      <div *ngIf="form.get('message')?.touched">
+        <div *ngIf="form.get('message')?.hasError('required')">
+          Message is required
+        </div>
+      </div>
+    </app-text-field>
+
+    <div class="submit-section">
+      <app-button type="submit" size="small" [disabled]="form.invalid">
+        SHARE
+      </app-button>
+      <p class="form-submit-error" *ngIf="errorMessage">{{ errorMessage }}</p>
+    </div>
+  </form>
+
+  <app-post-card [post]="post"></app-post-card>
+
+  <app-modal
+    [showModal]="showModal"
+    [isError]="!!errorMessage"
+    (closeModal)="closeModal()"
+  />
+</div>
