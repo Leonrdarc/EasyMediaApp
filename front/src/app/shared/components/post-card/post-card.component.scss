@@ -1,0 +1,56 @@
+$color-gray: #ebebeb;
+$color-blue: #58bcdb;
+$color-darker-gray: #666666;
+
+.card {
+  display: flex;
+  flex-direction: column;
+  color: $color-gray;
+  background-color: $color-darker-gray;
+  border-radius: 16px;
+  border: 1px solid #5f5e5e;
+  height: 127px;
+  overflow: hidden;
+
+  .card-title {
+    display: flex;
+    padding: 9px 16px;
+    background-color: $color-blue;
+    h5 {
+      color: #ebebeb;
+      font-size: 16px;
+      font-weight: 700;
+    }
+  }
+
+  .card-body {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 7px 16px;
+    height: 100%;
+
+    .card-text-message {
+      font-size: 14px;
+      font-weight: 300;
+    }
+
+    .card-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+
+      .card-text-date {
+        color: #ebebeb;
+        font-size: 12px;
+        font-weight: 300;
+        height: 14px;
+      }
+
+      .card-text-author {
+        font-size: 14px;
+        font-weight: 700;
+      }
+    }
+  }
+}

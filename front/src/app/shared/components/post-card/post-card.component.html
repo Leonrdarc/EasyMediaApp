@@ -1,0 +1,12 @@
+<div class="card">
+  <div class="card-title">
+    <h5 [innerHTML]="post.title | highlight : search"></h5>
+  </div>
+  <div class="card-body">
+    <p class="card-text-message">{{ post.message }}</p>
+    <div class="card-footer">
+      <p class="card-text-date">{{ post.date | date: 'h:mm a dd/MM/yy' }}</p>
+      <p class="card-text-author">{{ post.user.name }}</p>
+    </div>
+  </div>
+</div>
