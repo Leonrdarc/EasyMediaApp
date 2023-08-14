@@ -1,18 +1,20 @@
 <div class="input-container">
   <label>{{ label }}</label>
-  <input
-    [type]="inputType"
-    [(ngModel)]="inputValue"
-    [name]="name"
-    #input="ngModel"
-    [required]="required"
-  />
-
-  <div
-    *ngIf="type === 'password'"
-    class="toggle-icon"
-    (click)="toggleInputType()"
-  >
-    👁️
+  <div class="input-wrapper">
+    <input
+      [type]="type === 'password' && !showPassword ? 'password' : 'text'"
+      [formControl]="control"
+      [placeholder]="placeholder"
+    />
+    <button
+      class="password-toggle"
+      *ngIf="type === 'password'"
+      (click)="togglePasswordVisibility()"
+    >
+      <img src="../../../../assets/icons/eye.svg" />
+    </button>
+  </div>
+  <div class="error-container">
+    <ng-content></ng-content>
   </div>
 </div>

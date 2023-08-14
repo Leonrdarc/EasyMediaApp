@@ -1,6 +1,30 @@
 .input-container {
+  display: flex;
+  flex-direction: column;
   position: relative;
-  width: 250px;
+
+  label {
+    font-size: 15px;
+    font-weight: 700;
+  }
+
+  input,
+  input:-internal-autofill-selected,
+  input:focus {
+    background: none;
+    border: none;
+    outline: none;
+    border-bottom: 1px solid #fff;
+    font-size: 15px;
+    font-weight: 500;
+    padding: 5px 0;
+    width: 100%;
+    color: #fff !important;
+  }
+
+  .input-wrapper {
+    position: relative;
+  }
 }
 
 .toggle-icon {
@@ -9,4 +33,23 @@
   top: 50%;
   transform: translateY(-50%);
   cursor: pointer;
+}
+
+.error-container {
+  position: absolute;
+  bottom: -12px;
+  left: 0px;
+  font-size: 10px;
+  font-weight: 500;
+  line-height: 12px;
+  color: #fe4b4b;
+}
+
+.password-toggle {
+  position: absolute;
+  right: 0px;
+  bottom: 2px;
+  cursor: pointer;
+  background: none;
+  border: none;
 }

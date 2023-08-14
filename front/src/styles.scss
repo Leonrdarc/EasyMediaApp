@@ -36,8 +36,13 @@
 }
 
 body {
-  font-family: "Lato", sans-serif; // Use the name of your font
+  font-family: "Lato", sans-serif;
   background: #9B8ADB;
+  margin: 0px;
+}
+
+input {
+  font-family: "Lato", sans-serif;
 }
 
 h1, h2, h3, h4 {
