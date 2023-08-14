@@ -1,1 +1,86 @@
-<p>sign-up works!</p>
+<div class="container">
+  <img
+    src="../../../../assets/images/image_main.png"
+    alt="Description of Image"
+  />
+  <div class="sign-in-header">
+    <h1>Easy Media</h1>
+    <h3>Now, share is <b>easy</b></h3>
+    <h2>Sign Up</h2>
+  </div>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <app-input
+      label="Name"
+      type="name"
+      placeholder="Full Name"
+      [control]="asFormControl(form.get('name'))"
+    >
+      <div *ngIf="form.get('name')?.touched">
+        <div *ngIf="form.get('name')?.hasError('required')">
+          Name is required
+        </div>
+      </div>
+    </app-input>
+    <app-input
+      label="Email"
+      type="email"
+      placeholder="example@email.com"
+      [control]="asFormControl(form.get('email'))"
+    >
+      <div *ngIf="form.get('email')?.touched">
+        <div *ngIf="form.get('email')?.hasError('required')">
+          Email is required
+        </div>
+        <div *ngIf="form.get('email')?.hasError('email')">
+          Please provide a valid email
+        </div>
+      </div>
+    </app-input>
+
+    <app-input
+      label="Password"
+      type="password"
+      placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+      [control]="asFormControl(form.get('password'))"
+    >
+      <div *ngIf="form.get('password')?.touched">
+        <div *ngIf="form.get('password')?.hasError('required')">
+          Password is required
+        </div>
+        <div *ngIf="form.get('password')?.hasError('minlength')">
+          Password must have a minimum of 8 characters
+        </div>
+      </div>
+    </app-input>
+
+    <app-input
+      label="Confirm Password"
+      type="password"
+      placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;"
+      [control]="asFormControl(form.get('passwordConfirm'))"
+    >
+      <div *ngIf="form.get('passwordConfirm')?.touched">
+        <div *ngIf="form.get('passwordConfirm')?.hasError('required')">
+          Confirm password is required
+        </div>
+        <div
+          *ngIf="form.errors?.['passwordsMatch'] && !form.get('passwordConfirm')?.hasError('required')"
+        >
+          Passwords do not match
+        </div>
+      </div>
+    </app-input>
+
+    <div class="submit-section">
+      <app-button type="submit" [block]="true" [disabled]="form.invalid">
+        SIGN UP
+      </app-button>
+      <p class="form-submit-error" *ngIf="errorMessage">{{ errorMessage }}</p>
+    </div>
+  </form>
+
+  <p class="no-account">
+    Already have an account? <a [routerLink]="['/sign-in']">Login</a>
+  </p>
+</div>
