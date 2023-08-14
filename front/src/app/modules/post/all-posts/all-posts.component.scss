@@ -1,0 +1,43 @@
+.all-posts {
+  display: flex;
+  flex-direction: column;
+  padding: 0px 22px;
+  gap: 8px;
+
+  .search-form {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: relative;
+    .post-count {
+      position: absolute;
+      top: 3px;
+      right: 0;
+      color: #ebebeb;
+      font-size: 12px;
+      font-weight: 300;
+    }
+  }
+
+  h1 {
+    text-align: center;
+    color: #fff;
+    font-size: 30px;
+    font-weight: 800;
+    margin: 14px 0px;
+    margin-bottom: 0px;
+  }
+
+  .posts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    height: min-content;
+    .cards {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 24px;
+    }
+  }
+}

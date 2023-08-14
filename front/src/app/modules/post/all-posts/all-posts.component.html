@@ -1,1 +1,35 @@
-<p>all-posts works!</p>
+<div class="all-posts">
+  <h1>All Publications</h1>
+  <form class="search-form">
+    <a *ngIf="posts.length>0 && !loading" class="post-count">Showing {{posts.length}}/{{meta.total}} Post</a>
+    <a *ngIf="posts.length===0 && !loading" class="post-count">No results here</a>
+    <app-text-field
+      [label]="'Words to Search?'"
+      [placeholder]="'post'"
+      [control]="asFormControl(searchForm.get('search'))"
+    />
+    <app-day-selector
+      [label]="'Date Select'"
+      [control]="asFormControl(searchForm.get('date'))"
+    />
+  </form>
+
+  <div *ngIf="!loading" class="posts-container">
+    <div class="cards" *ngIf="!loading">
+      <app-post-card
+        *ngFor="let post of posts"
+        [search]="searchForm.get('search')?.value"
+        [post]="post"
+      ></app-post-card>
+    </div>
+    <app-empty *ngIf="posts.length === 0 && !loading"></app-empty>
+    <app-paginator
+      *ngIf="!loading&&posts.length > 0"
+      [(currentPage)]="currentPage"
+      (currentPageChange)="changePage($event)"
+      [itemsPerPage]="3"
+      [totalPages]="meta.totalPages"
+    />
+  </div>
+  <app-spinner *ngIf="loading"></app-spinner>
+</div>
