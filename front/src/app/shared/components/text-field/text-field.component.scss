@@ -1,0 +1,50 @@
+.input-container {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+
+  label {
+    color: #0e2248;
+    font-size: 15px;
+    font-weight: 700;
+    margin-bottom: 8px;
+  }
+
+  .input-wrapper {
+    display: flex;
+    flex-direction: column;
+    textarea {
+      font-family: "Lato", sans-serif;
+      border-radius: 16px;
+      border: 1px solid #5f5e5e;
+      background: #ebebeb;
+      resize: none;
+      padding: 4px 12px;
+
+      &::placeholder {
+        color: #b7b7b7;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+
+    .character-counter {
+      align-self: flex-end;
+      color: #5f5e5e;
+      font-size: 10px;
+      font-weight: 500;
+      margin-top: 3px;
+    }
+  }
+
+  .error-container {
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
+    font-size: 10px;
+    font-weight: 500;
+    line-height: 12px;
+    color: #fe4b4b;
+  }
+}

@@ -1,0 +1,10 @@
+<div class="input-container">
+  <label>{{ label }}</label>
+  <div class="input-wrapper">
+    <textarea [rows]="rows" [formControl]="control" [placeholder]="placeholder" [maxlength]="maxCharacters ?? 30"></textarea>
+    <div *ngIf="!!maxCharacters" class="character-counter">{{ length }}/{{maxCharacters}}</div>
+  </div>
+  <div class="error-container">
+    <ng-content></ng-content>
+  </div>
+</div>
