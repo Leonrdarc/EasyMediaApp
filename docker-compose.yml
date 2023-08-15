@@ -1,4 +1,3 @@
-# - MONGO_URI=mongodb+srv://admin:i3Kjz1KFM7v6duku@cluster0.gk0xx9g.mongodb.net/?retryWrites=true&w=majority
 version: '3'
 
 services:
