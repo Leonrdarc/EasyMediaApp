@@ -38,7 +38,7 @@ export class MyPostsComponent {
     this.loading = true;
 
     this.postService
-      .getAllPosts({...this.filterForm.value, page: this.currentPage})
+      .getMyPosts({...this.filterForm.value, page: this.currentPage})
       .subscribe((response: any) => {
         this.posts = response.data;
         this.meta = response.meta;

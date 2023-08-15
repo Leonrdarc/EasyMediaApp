@@ -30,4 +30,12 @@ export class PostService {
       })
     );
   }
+
+  getMyPosts(params: any): Observable<any> {
+    return this.http.get<any>('/post/me', {...this.httpOptions, params}).pipe(
+      map((data) => {
+        return data;
+      })
+    );
+  }
 }
