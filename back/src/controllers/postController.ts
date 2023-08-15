@@ -72,7 +72,7 @@ export const getMyPosts = async (
       .populate("user")
       .exec();
 
-    const totalPosts = await Post.countDocuments();
+    const totalPosts = await Post.countDocuments(filter);
     const totalPages = Math.ceil(totalPosts / numLimit);
 
     res.json({
