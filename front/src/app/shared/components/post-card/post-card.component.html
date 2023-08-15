@@ -5,7 +5,9 @@
   <div class="card-body">
     <p class="card-text-message">{{ post.message }}</p>
     <div class="card-footer">
-      <p class="card-text-date">{{ post.date | date: 'h:mm a dd/MM/yy' }}</p>
+      <p class="card-text-date">
+        {{ post.date | date : "h:mm a dd/MM/yy" : "UTC" }}
+      </p>
       <p class="card-text-author">{{ post.user.name }}</p>
     </div>
   </div>
