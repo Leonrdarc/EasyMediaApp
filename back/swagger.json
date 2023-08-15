@@ -1,0 +1,455 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "EasyMedia API",
+    "description": "Backend application that uses Express.js to create an API. It includes routes for handling posts and user authentication. "
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000"
+    }
+  ],
+  "paths": {
+    "/posts/all": {
+      "get": {
+        "summary": "Get all posts",
+        "description": "Retrieve all posts.",
+        "tags": ["Posts"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "search",
+            "in": "query",
+            "description": "Search query parameter",
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Date query parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/PostsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/errors/UnauthorizedError"
+          }
+        }
+      }
+    },
+    "/posts/me": {
+      "get": {
+        "summary": "Get user's posts",
+        "description": "Retrieve posts created by the authenticated user.",
+        "tags": ["Posts"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "date",
+            "in": "query",
+            "description": "Date query parameter",
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Successful operation",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/PostsResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/errors/UnauthorizedError"
+          }
+        }
+      }
+    },
+    "/posts/create": {
+      "post": {
+        "summary": "Create a new post",
+        "description": "Create a new post.",
+        "tags": ["Posts"],
+        "security": [
+          {
+            "bearerAuth": []
+          }
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/requests/CreatePostRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "$ref": "#/components/responses/CreatePostResponse"
+          },
+          "401": {
+            "$ref": "#/components/errors/UnauthorizedError"
+          }
+        }
+      }
+    },
+    "/users/login": {
+      "post": {
+        "summary": "Login an user",
+        "description": "Login an user.",
+        "tags": ["Users"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/requests/LoginRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "User logged in successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/LoginResponse"
+                }
+              }
+            }
+          },
+          "401": {
+            "$ref": "#/components/errors/UnauthorizedError"
+          }
+        }
+      }
+    },
+    "/users/register": {
+      "post": {
+        "summary": "Register a new user",
+        "description": "Register a new user.",
+        "tags": ["Users"],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/requests/RegisterRequest"
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "User created successfully",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/responses/RegisterResponse"
+                }
+              }
+            }
+          },
+          "400": {
+            "$ref": "#/components/errors/BadRequestError"
+          }
+        }
+      }
+    }
+  },
+
+  "components": {
+    "schemas": {
+      "Post": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "title": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "date": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": ["_id", "title", "message", "user", "date"],
+        "example": {
+          "_id": "64d69499cb3c668a9e473426",
+          "title": "Example Post",
+          "message": "This is an example post",
+          "user": {
+            "$ref": "#/components/schemas/User/example"
+          },
+          "date": "2022-01-01T00:00:00Z"
+        }
+      },
+      "User": {
+        "type": "object",
+        "properties": {
+          "_id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          },
+          "password": {
+            "description": "Password hash",
+            "type": "string"
+          }
+        },
+        "required": ["_id", "name", "email", "password"],
+        "example": {
+          "_id": "64d69499cb3c668a9e473426",
+          "name": "John Doe",
+          "email": "johndoe@example.com",
+          "password": "$2b$10$.IwtjZZ3e1J8u3MRN5F.5uYq9P/i8wB3Cdlzhgv7oXyTci4MCwAXu"
+        }
+      },
+      "PaginationMetadata": {
+        "type": "object",
+        "properties": {
+          "total": {
+            "type": "integer"
+          },
+          "page": {
+            "type": "integer"
+          },
+          "limit": {
+            "type": "integer"
+          },
+          "totalPages": {
+            "type": "integer"
+          }
+        },
+        "required": ["total", "limit", "totalPages"],
+        "example": {
+          "total": 100,
+          "page": 1,
+          "limit": 10,
+          "totalPages": 10
+        }
+      }
+    },
+    "errors": {
+      "UnauthorizedError": {
+        "description": "Unauthorized",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/errors/Error"
+            },
+            "example": {
+              "status": "error",
+              "message": "Invalid or expired token",
+              "stack": "Error: Invalid or expired token at /Users/.../express-api/src/middlewares/auth.js:30:17"
+            }
+          }
+        }
+      },
+      "BadRequestError": {
+        "description": "Bad Request",
+        "content": {
+          "application/json": {
+            "schema": {
+              "$ref": "#/components/errors/Error"
+            },
+
+            "example": {
+              "status": "error",
+              "message": "User with this email already exists.",
+              "stack": "Error: User with this email already exists. at /Users/.../express-api/src/controllers/users.js:30:17"
+            }
+          }
+        }
+      },
+      "Error": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          },
+          "stack": {
+            "type": "string"
+          }
+        },
+        "required": ["status", "message"]
+      }
+    },
+    "requests": {
+      "LoginRequest": {
+        "type": "object",
+        "properties": {
+          "username": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          }
+        },
+        "required": ["username", "password"],
+        "example": {
+          "username": "johndoe",
+          "password": "123456"
+        }
+      },
+      "RegisterRequest": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "password": {
+            "type": "string"
+          },
+          "email": {
+            "type": "string"
+          }
+        },
+        "required": ["username", "password", "email"],
+        "example": {
+          "name": "johndoe",
+          "password": "123456",
+          "email": "johndoe@example.com"
+        }
+      },
+      "CreatePostRequest": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string"
+          },
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": ["title", "message"],
+        "example": {
+          "title": "Example Post",
+          "message": "This is an example post"
+        }
+      }
+    },
+    "responses": {
+      "PostsResponse": {
+        "type": "object",
+        "properties": {
+          "data": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Post"
+            }
+          },
+          "meta": {
+            "$ref": "#/components/schemas/PaginationMetadata"
+          }
+        }
+      },
+      "CreatePostResponse": {
+        "type": "object",
+        "description": "Post created successfully",
+        "properties": {
+          "message": {
+            "type": "string"
+          }
+        },
+        "required": ["message"],
+        "example": {
+          "message": "Post created successfully",
+          "asf": "Post created successfully"
+        }
+      },
+      "LoginResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "token": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "message": "User logged in successfully.",
+          "user": {
+            "_id": "64d69499cb3c668a9e473426",
+            "name": "John Doe",
+            "email": "johndoe@example.com"
+          },
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+        }
+      },
+      "RegisterResponse": {
+        "type": "object",
+        "properties": {
+          "message": {
+            "type": "string"
+          },
+          "user": {
+            "$ref": "#/components/schemas/User"
+          },
+          "token": {
+            "type": "string"
+          }
+        },
+        "example": {
+          "message": "User created successfully.",
+          "user": {
+            "_id": "64d69499cb3c668a9e473426",
+            "name": "John Doe",
+            "email": "johndoe@example.com",
+            "password": "$2b$10$.IwtjZZ3e1J8u3MRN5F.5uYq9P/i8wB3Cdlzhgv7oXyTci4MCwAXu"
+          },
+          "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9"
+        }
+      }
+    }
+  }
+}

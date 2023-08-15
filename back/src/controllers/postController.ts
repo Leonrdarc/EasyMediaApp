@@ -40,6 +40,12 @@ export const createPost = async (
   }
 };
 
+/**
+ * Get posts belonging to the authenticated user.
+ *
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 export const getMyPosts = async (
   req: Request,
   res: Response,
@@ -83,6 +89,12 @@ export const getMyPosts = async (
   }
 };
 
+/**
+ * Get all posts based on optional filters.
+ *
+ * @param req - Express request object.
+ * @param res - Express response object.
+ */
 export const getAllPosts = async (
   req: Request,
   res: Response,

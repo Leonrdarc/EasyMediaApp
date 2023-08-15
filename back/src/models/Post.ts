@@ -1,6 +1,7 @@
 import mongoose, { Document, Schema } from "mongoose";
 
 interface IPost extends Document {
+  _id: string;
   title: string;
   message: string;
   user: Schema.Types.ObjectId;
