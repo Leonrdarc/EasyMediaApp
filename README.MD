@@ -41,6 +41,7 @@ The design and user interface of the frontend application are inspired by [EasyM
 
    - Frontend: Open a browser and navigate to `http://localhost:4200`.
    - Backend: API endpoints can be accessed at `http://localhost:3000`.
+   - Swagger: Swagger documentation for the backend API is available at `http://localhost:3000/api-docs`.
 
 4. **MongoDB cloud**:
 
@@ -65,6 +66,7 @@ The design and user interface of the frontend application are inspired by [EasyM
    ```
    docker-compose down
    ```
+
 
 ## Run Apps Locally:
 
